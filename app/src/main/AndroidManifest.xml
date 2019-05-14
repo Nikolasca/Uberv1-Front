@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PerfilGenerico"></activity>
+        <activity android:name=".Login"></activity>
+        <activity android:name=".PerfilGenerico" />
         <activity android:name=".RegistroAdministrador" />
         <activity android:name=".RegistroConductor" />
         <activity android:name=".RegistroPasajero" />

@@ -25,4 +25,10 @@ public interface HerokuService {
                                 @Field("pass") String pass,
                                 @Field("type") String type);
 
+    @FormUrlEncoded
+    @POST("servicio/Login")
+    Call<ResponseBody> Login(@Field("user") String name,
+                             @Field("pass") String pass);
+
+
 }

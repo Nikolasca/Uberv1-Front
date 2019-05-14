@@ -31,7 +31,7 @@ Button  Registro,Login ;
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Login= new Intent(MainActivity.this,PerfilGenerico.class);
+                Intent Login= new Intent(MainActivity.this,Login.class);
                 startActivity(Login);
             }
         });
