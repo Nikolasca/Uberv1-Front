@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TipoRegistro"></activity>
+        <activity android:name=".RegistroAdministrador"></activity>
+        <activity android:name=".RegistroConductor" />
+        <activity android:name=".RegistroPasajero" />
+        <activity android:name=".TipoRegistro" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
