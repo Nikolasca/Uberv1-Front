@@ -17,7 +17,12 @@ public interface HerokuService {
 
     @FormUrlEncoded
     @POST("servicio/Hola")
-
     Call<ResponseBody> Test(@Field("name") String s);
+
+    @FormUrlEncoded
+    @POST("servicio/Register")
+    Call<ResponseBody> Register(@Field("name") String name,
+                                @Field("pass") String pass,
+                                @Field("type") String type);
 
 }

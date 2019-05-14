@@ -73,7 +73,7 @@ Button  Registro ;
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<ResponseBody> call = service.Test("TOMA TU POST!!!!!! intento: 4078");
+                Call<ResponseBody> call = service.Register("Nikolas","123","Conductor");
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> _,
