@@ -43,4 +43,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="login"
+        tools:layout_editor_absoluteX="50dp"
+        tools:layout_editor_absoluteY="626dp" />
+
+    <Button
+        android:id="@+id/IrRegistros"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="registro"
+        tools:layout_editor_absoluteX="261dp"
+        tools:layout_editor_absoluteY="625dp" />
+
 </android.support.constraint.ConstraintLayout>

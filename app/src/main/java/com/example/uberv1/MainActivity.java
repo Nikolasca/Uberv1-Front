@@ -1,5 +1,6 @@
 package com.example.uberv1;
 
+import android.content.Intent;
 import android.graphics.Interpolator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,11 +21,20 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public class MainActivity extends AppCompatActivity {
-
+Button  Registro ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Registro = (Button)findViewById(R.id.IrRegistros);
+        Registro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Registro = new Intent(MainActivity.this,TipoRegistro.class);
+                startActivity(Registro);
+            }
+        });
 
         final TextView textView;
         textView = findViewById(R.id.textView);
