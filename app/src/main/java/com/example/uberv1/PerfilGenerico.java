@@ -5,15 +5,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class PerfilGenerico extends AppCompatActivity {
 
     Button IrGenerarViaje,IrHistorialViajes,IrHistorialPagos,IrPerfil;
+    EditText Nobe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        String nombre = getIntent().getExtras().getString("nombre");
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_generico);
+        Nobe = (EditText) findViewById((R.id.prueba));
+        System.out.println(nombre);
+
+        Nobe.setText(nombre);
         IrGenerarViaje= (Button)findViewById(R.id.IrGenerarViaje);
         IrGenerarViaje.setOnClickListener(new View.OnClickListener() {
             @Override

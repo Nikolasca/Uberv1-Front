@@ -7,7 +7,7 @@
     tools:context=".PerfilGenerico">
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/prueba"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -33,7 +33,7 @@
         android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/prueba" />
 
     <EditText
         android:id="@+id/editText4"
@@ -55,33 +55,35 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="52dp"
+        android:layout_marginBottom="68dp"
         android:text="perfil"
+        app:layout_constraintBottom_toTopOf="@+id/IrHistorialViajes"
         app:layout_constraintEnd_toStartOf="@+id/IrHistorialViajes"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="494dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/IrHistorialViajes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="96dp"
+        android:layout_marginEnd="64dp"
         android:layout_marginBottom="80dp"
         android:text="hisstorial viajes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/IrHistorialPagos"
         app:layout_constraintTop_toBottomOf="@+id/editText4"
-        app:layout_constraintVertical_bias="0.969" />
+        app:layout_constraintVertical_bias="0.847" />
 
     <Button
         android:id="@+id/IrHistorialPagos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="60dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="40dp"
         android:text="historial pagos"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="598dp" />
+        app:layout_constraintTop_toBottomOf="@+id/IrGenerarViaje" />
 
     <Button
         android:id="@+id/IrGenerarViaje"

@@ -36,8 +36,8 @@ public class RegistroPasajero extends AppCompatActivity {
         final EditText Pass2 = findViewById(R.id.Pass2);
 
         buttonR.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                @Override
+                public void onClick(View v) {
                 Call<ResponseBody> call = service.Register(Nombre.getText().toString(),Pass.getText().toString(),"Pasajero");
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
@@ -45,6 +45,7 @@ public class RegistroPasajero extends AppCompatActivity {
                                            Response<ResponseBody> response) {
                         try {
                             Pass2.setText(response.body().string());
+
                         } catch (IOException e) {
                             e.printStackTrace();
                             Pass2.setText(e.getMessage());

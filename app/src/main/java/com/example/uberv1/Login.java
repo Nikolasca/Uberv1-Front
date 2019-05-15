@@ -1,5 +1,6 @@
 package com.example.uberv1;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -44,7 +45,16 @@ public class Login extends AppCompatActivity {
                     public void onResponse(Call<ResponseBody> _,
                                            Response<ResponseBody> response) {
                         try {
-                            textView.setText(response.body().string());
+
+                            String[] parts =  response.body().string().split(",");
+                            textView.setText(parts[0]);
+                            if(("Usuario Aceptado").compareToIgnoreCase(parts[0])==0){
+
+                                Intent Log= new Intent(Login.this,PerfilGenerico.class);
+                                Log.putExtra("nombre", parts[1]);
+                                Log.putExtra("Pass",parts[2]);
+                                startActivity(Log);
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                             textView.setText(e.getMessage());
