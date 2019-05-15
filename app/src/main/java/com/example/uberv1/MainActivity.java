@@ -21,11 +21,21 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public class MainActivity extends AppCompatActivity {
-Button  Registro,Login ;
+Button  Registro,Login,Maps ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Maps = (Button) findViewById(R.id.buttonMaps);
+        Maps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Maps= new Intent(MainActivity.this,Maps.class);
+                startActivity(Maps);
+
+            }
+        });
 
         Login =(Button) findViewById(R.id.Login);
         Login.setOnClickListener(new View.OnClickListener() {
