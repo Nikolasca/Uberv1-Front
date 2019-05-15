@@ -52,7 +52,7 @@ public class Login extends AppCompatActivity {
 
                                 Intent Log= new Intent(Login.this,PerfilGenerico.class);
                                 Log.putExtra("nombre", parts[1]);
-                                Log.putExtra("Pass",parts[2]);
+                                Log.putExtra("Tipo",parts[3]);
                                 startActivity(Log);
                             }
                         } catch (IOException e) {
