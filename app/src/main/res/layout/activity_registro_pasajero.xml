@@ -107,7 +107,7 @@
         app:layout_constraintTop_toBottomOf="@+id/Telefono" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/checkPasajero"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -117,23 +117,23 @@
         app:layout_constraintTop_toBottomOf="@+id/Pass" />
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/checkConductor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="40dp"
         android:text="Conductor"
-        app:layout_constraintStart_toEndOf="@+id/checkBox"
+        app:layout_constraintStart_toEndOf="@+id/checkPasajero"
         app:layout_constraintTop_toBottomOf="@+id/Pass" />
 
     <CheckBox
-        android:id="@+id/checkBox3"
+        android:id="@+id/checkAdmin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
         android:text="Administrador"
-        app:layout_constraintStart_toEndOf="@+id/checkBox2"
+        app:layout_constraintStart_toEndOf="@+id/checkConductor"
         app:layout_constraintTop_toBottomOf="@+id/Pass" />
 
     <EditText
@@ -149,7 +149,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.142"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+        app:layout_constraintTop_toBottomOf="@+id/checkPasajero" />
 
 
 </android.support.constraint.ConstraintLayout>

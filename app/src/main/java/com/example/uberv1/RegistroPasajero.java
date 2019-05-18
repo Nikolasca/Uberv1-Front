@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -34,6 +35,11 @@ public class RegistroPasajero extends AppCompatActivity {
         final EditText Email = findViewById(R.id.Email);
         final EditText Pass = findViewById(R.id.Pass);
         final EditText Pass2 = findViewById(R.id.Pass2);
+        final CheckBox pasajero = findViewById(R.id.checkPasajero);
+        final CheckBox conductor = findViewById(R.id.checkConductor);
+        final CheckBox admin = findViewById(R.id.checkAdmin);
+        final EditText telefono = findViewById(R.id.Telefono);
+        final EditText documento = findViewById(R.id.Documento);
 
         buttonR.setOnClickListener(new View.OnClickListener() {
                 @Override
