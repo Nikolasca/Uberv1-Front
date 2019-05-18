@@ -55,66 +55,13 @@ Button  Registro,Login,Maps ;
             }
         });
 
-        final TextView textView;
-        textView = findViewById(R.id.textView);
-        final Button button1 = findViewById(R.id.button);
-        final Button button2 = findViewById(R.id.button2);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
                 .addConverterFactory(ScalarsConverterFactory.create())
                .build();
         final HerokuService service = retrofit.create(HerokuService.class);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Call<ResponseBody> call = service.prueba2();
-                call.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> _,
-                                           Response<ResponseBody> response) {
-                        try {
-                            textView.setText(response.body().string());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            textView.setText(e.getMessage());
-                        }
-                    }
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> _, Throwable t) {
-                        t.printStackTrace();
-                        textView.setText(t.getMessage());
-                    }
-                });
-            }
-        });
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Call<ResponseBody> call = service.Register("Nikolas","123","Conductor");
-                call.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> _,
-                                           Response<ResponseBody> response) {
-                        try {
-
-                            textView.setText(response.body().string());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            textView.setText(e.getMessage());
-                        }
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> _, Throwable t) {
-                        t.printStackTrace();
-                        textView.setText(t.getMessage());
-                    }
-                });
-            }
-        });
 
     }
 }
