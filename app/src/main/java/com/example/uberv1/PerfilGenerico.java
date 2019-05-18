@@ -50,15 +50,6 @@ public class PerfilGenerico extends AppCompatActivity {
                 startActivity(IrHistorialPagos);
             }
         });
-        IrPerfil= (Button)findViewById(R.id.IrPerfil);
-        IrPerfil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent IrPerfil = new Intent(PerfilGenerico.this,PerfilGenerico.class);
-               startActivity(IrPerfil);
-            }
-        });
-
     }
 
 
