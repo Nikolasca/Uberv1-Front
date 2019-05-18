@@ -50,7 +50,7 @@ Button  Registro,Login,Maps ;
         Registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Registro = new Intent(MainActivity.this,TipoRegistro.class);
+                Intent Registro = new Intent(MainActivity.this,RegistroPasajero.class);
                 startActivity(Registro);
             }
         });
