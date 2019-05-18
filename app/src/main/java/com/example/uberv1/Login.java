@@ -34,7 +34,7 @@ public class Login extends AppCompatActivity {
         final EditText Nombre = findViewById(R.id.user);
         final EditText Pass = findViewById(R.id.pass);
         final TextView textView;
-        textView = findViewById(R.id.textView);
+       // textView = findViewById(R.id.textView);
 
         buttonL.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +47,7 @@ public class Login extends AppCompatActivity {
                         try {
 
                             String[] parts =  response.body().string().split(",");
-                            textView.setText(parts[0]);
+                           // textView.setText(parts[0]);
                             if(("Usuario Aceptado").compareToIgnoreCase(parts[0])==0){
 
                                 Intent Log= new Intent(Login.this,PerfilGenerico.class);
@@ -57,14 +57,14 @@ public class Login extends AppCompatActivity {
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
-                            textView.setText(e.getMessage());
+                           // textView.setText(e.getMessage());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> _, Throwable t) {
                         t.printStackTrace();
-                        textView.setText(t.getMessage());
+                     //   textView.setText(t.getMessage());
                     }
                 });
             }
