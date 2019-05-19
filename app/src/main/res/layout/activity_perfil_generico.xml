@@ -117,7 +117,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.428"
-        app:srcCompat="@drawable/hispag" />
+         />
 
     <ImageButton
         android:id="@+id/IrGenerarViaje"
@@ -131,7 +131,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/location" />
+         />
 
     <ImageButton
         android:id="@+id/IrHistorialViajes"
@@ -148,6 +148,6 @@
         app:layout_constraintStart_toEndOf="@+id/IrGenerarViaje"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.304"
-        app:srcCompat="@drawable/historialviajes" />
+         />
 
 </android.support.constraint.ConstraintLayout>

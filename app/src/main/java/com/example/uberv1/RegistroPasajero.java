@@ -44,7 +44,7 @@ public class RegistroPasajero extends AppCompatActivity {
         buttonR.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                Call<ResponseBody> call = service.Register(Nombre.getText().toString(),Pass.getText().toString(),"Pasajero");
+                Call<ResponseBody> call = service.Register(Nombre.getText().toString(),Email.getText().toString(),Pass.getText().toString(),"Pasajero");
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> _,

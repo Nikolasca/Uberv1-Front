@@ -12,22 +12,26 @@ import android.widget.ImageButton;
 public class PerfilGenerico extends AppCompatActivity {
 
     ImageButton IrGenerarViaje,IrHistorialViajes,IrHistorialPagos,IrPerfil;
-    EditText Nobe, Type;
+    EditText Nobe, Type, Email,Telefono;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         String nombre = getIntent().getExtras().getString("nombre");
         String tipo = getIntent().getExtras().getString("Tipo");
-
+        String em = getIntent().getExtras().getString("Email");
+        //String tel = getIntent().getExtras().getString();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_generico);
         Nobe = (EditText) findViewById((R.id.prueba));
         Type = (EditText) findViewById((R.id.tipoUser));
+        Email = (EditText) findViewById(R.id.Email);
+        Telefono = (EditText) findViewById(R.id.Telefono) ;
         System.out.println(nombre);
 
         Nobe.setText(nombre);
         Type.setText(tipo);
+        Email.setText(em);
         IrGenerarViaje= (ImageButton)findViewById(R.id.IrGenerarViaje);
         IrGenerarViaje.setOnClickListener(new View.OnClickListener() {
             @Override

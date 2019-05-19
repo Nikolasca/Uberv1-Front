@@ -154,7 +154,7 @@ public class Maps extends Fragment implements OnMapReadyCallback {
             Log.d("Hola","Latitud" + L.getLatitude());
             Log.d("Hola","Longitud" + L.getLongitude());
             LatLng currentL = new LatLng(L.getLatitude(),L.getLongitude());
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentL,20));
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentL,15));
 
 
         });
