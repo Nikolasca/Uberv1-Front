@@ -22,6 +22,7 @@ import retrofit2.http.POST;
 
 public class MainActivity extends AppCompatActivity {
 Button  Registro,Login,Maps ;
+private boolean mLocationPermissionGranthed=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +32,7 @@ Button  Registro,Login,Maps ;
         Maps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Maps= new Intent(MainActivity.this,Maps.class);
+                Intent Maps= new Intent(MainActivity.this,Prueba.class);
                 startActivity(Maps);
 
             }
