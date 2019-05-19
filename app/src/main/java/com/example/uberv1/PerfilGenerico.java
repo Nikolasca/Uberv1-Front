@@ -32,7 +32,7 @@ public class PerfilGenerico extends AppCompatActivity {
         IrGenerarViaje.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent IrGenerarViaje = new Intent(PerfilGenerico.this,GenerarViaje.class);
+                Intent IrGenerarViaje = new Intent(PerfilGenerico.this,Prueba.class);
                 startActivity(IrGenerarViaje);
             }
         });
