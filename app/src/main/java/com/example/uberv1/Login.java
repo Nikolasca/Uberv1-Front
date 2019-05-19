@@ -1,12 +1,21 @@
 package com.example.uberv1;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
 
@@ -18,6 +27,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class Login extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,41 +44,42 @@ public class Login extends AppCompatActivity {
         final EditText Nombre = findViewById(R.id.user);
         final EditText Pass = findViewById(R.id.pass);
         final TextView textView;
-       // textView = findViewById(R.id.textView);
+        // textView = findViewById(R.id.textView);
 
         buttonL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<ResponseBody> call = service.Login(Nombre.getText().toString(),Pass.getText().toString());
+                Call<ResponseBody> call = service.Login(Nombre.getText().toString(), Pass.getText().toString());
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
-                    public void onResponse(Call<ResponseBody> _ ,
+                    public void onResponse(Call<ResponseBody> _,
                                            Response<ResponseBody> response) {
                         try {
 
-                            String[] parts =  response.body().string().split(",");
-                           // textView.setText(parts[0]);
-                            if(("Usuario Aceptado").compareToIgnoreCase(parts[0])==0){
+                            String[] parts = response.body().string().split(",");
+                            // textView.setText(parts[0]);
+                            if (("Usuario Aceptado").compareToIgnoreCase(parts[0]) == 0) {
 
-                                Intent Log= new Intent(Login.this,PerfilGenerico.class);
+                                Intent Log = new Intent(Login.this, PerfilGenerico.class);
                                 Log.putExtra("nombre", parts[1]);
-                                Log.putExtra("Tipo",parts[3]);
+                                Log.putExtra("Tipo", parts[3]);
                                 startActivity(Log);
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
-                           // textView.setText(e.getMessage());
+                            // textView.setText(e.getMessage());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> _, Throwable t) {
                         t.printStackTrace();
-                     //   textView.setText(t.getMessage());
+                        //   textView.setText(t.getMessage());
                     }
                 });
             }
         });
 
     }
+
 }
