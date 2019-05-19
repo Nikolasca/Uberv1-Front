@@ -1,15 +1,17 @@
 package com.example.uberv1;
 
 import android.content.Intent;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 public class PerfilGenerico extends AppCompatActivity {
 
-    Button IrGenerarViaje,IrHistorialViajes,IrHistorialPagos,IrPerfil;
+    ImageButton IrGenerarViaje,IrHistorialViajes,IrHistorialPagos,IrPerfil;
     EditText Nobe, Type;
 
     @Override
@@ -26,7 +28,7 @@ public class PerfilGenerico extends AppCompatActivity {
 
         Nobe.setText(nombre);
         Type.setText(tipo);
-        IrGenerarViaje= (Button)findViewById(R.id.IrGenerarViaje);
+        IrGenerarViaje= (ImageButton)findViewById(R.id.IrGenerarViaje);
         IrGenerarViaje.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,7 +36,7 @@ public class PerfilGenerico extends AppCompatActivity {
                 startActivity(IrGenerarViaje);
             }
         });
-        IrHistorialViajes= (Button)findViewById(R.id.IrHistorialViajes);
+        IrHistorialViajes= (ImageButton)findViewById(R.id.IrHistorialViajes);
         IrHistorialViajes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,7 +44,7 @@ public class PerfilGenerico extends AppCompatActivity {
                 startActivity(IrHistorialViajes);
             }
         });
-        IrHistorialPagos= (Button)findViewById(R.id.IrHistorialPagos);
+        IrHistorialPagos= (ImageButton)findViewById(R.id.IrHistorialPagos);
         IrHistorialPagos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
