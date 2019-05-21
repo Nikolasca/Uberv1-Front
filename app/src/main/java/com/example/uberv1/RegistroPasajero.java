@@ -17,8 +17,10 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class RegistroPasajero extends AppCompatActivity {
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
+public class RegistroPasajero extends AppCompatActivity {
+TextView Pass2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,17 +36,34 @@ public class RegistroPasajero extends AppCompatActivity {
         final EditText Nombre = findViewById(R.id.Nombre);
         final EditText Email = findViewById(R.id.Email);
         final EditText Pass = findViewById(R.id.Pass);
-        final EditText Pass2 = findViewById(R.id.Pass2);
+
         final CheckBox pasajero = findViewById(R.id.checkPasajero);
         final CheckBox conductor = findViewById(R.id.checkConductor);
         final CheckBox admin = findViewById(R.id.checkAdmin);
         final EditText telefono = findViewById(R.id.Telefono);
         final EditText documento = findViewById(R.id.Documento);
+        final CheckBox checkAdmin = findViewById(R.id.checkAdmin);
+        final CheckBox checkPasajero = findViewById(R.id.checkPasajero);
+        final CheckBox checkConductor = findViewById(R.id.checkConductor);
+        Pass2 = (TextView) findViewById(R.id.textView6);
 
         buttonR.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                Call<ResponseBody> call = service.Register(Nombre.getText().toString(),Email.getText().toString(),Pass.getText().toString(),"Pasajero");
+                    String tipo ="";
+                    if(checkPasajero.isChecked()){
+                        tipo = "Pasajero";
+                    }
+                    if (checkConductor.isChecked()){
+
+                        tipo= "Conductor";
+                    }
+                    if (checkAdmin.isChecked()){
+
+                        tipo= "Administrador";
+                    }
+                    System.out.println(tipo);
+                Call<ResponseBody> call = service.Register(Nombre.getText().toString(),Email.getText().toString(),Integer.parseInt(telefono.getText().toString()),Pass.getText().toString(),tipo);
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> _,

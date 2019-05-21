@@ -23,6 +23,7 @@ public interface HerokuService {
     @POST("servicio/Register")
     Call<ResponseBody> Register(@Field("name") String name,
                                 @Field("email") String email,
+                                @Field("telefono") int telefono,
                                 @Field("pass") String pass,
                                 @Field("type") String type);
 
