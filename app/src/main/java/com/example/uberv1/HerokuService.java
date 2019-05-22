@@ -1,6 +1,8 @@
 package com.example.uberv1;
         import android.service.media.MediaBrowserService;
 
+        import java.util.List;
+
         import okhttp3.ResponseBody;
         import retrofit2.Call;
         import retrofit2.http.Body;
@@ -33,7 +35,7 @@ public interface HerokuService {
                              @Field("pass") String pass);
 
     @GET("servicio/Conductores")
-    Call<ResponseBody> TraerConductores();
+    Call<List<Usuario>> TraerConductores();
 
     @FormUrlEncoded
     @POST("servicio/UpdateL")

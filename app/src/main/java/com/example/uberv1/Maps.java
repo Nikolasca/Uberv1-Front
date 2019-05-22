@@ -1,6 +1,7 @@
 package com.example.uberv1;
 
 import android.Manifest;
+import android.arch.lifecycle.Transformations;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
@@ -26,6 +27,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 import com.google.maps.GeoApiContext;
 
 import org.json.JSONArray;
@@ -42,6 +44,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 import  static  Util.Constantes.MAPVIEW_BUNDLE_KEY;
@@ -153,44 +156,49 @@ public class Maps extends Fragment implements OnMapReadyCallback {
         });
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
-                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
         final HerokuService service = retrofit.create(HerokuService.class);
-        TraerC(service);
 
-
-    }
-    private void TraerC(HerokuService service){
-        Call<ResponseBody> call = service.TraerConductores();
-        call.enqueue(new Callback<ResponseBody>() {
+        Call <List<Usuario>> call = service.TraerConductores();
+        call.enqueue(new Callback<List<Usuario>>() {
             @Override
-            public void onResponse(Call<ResponseBody> _,
-                                   Response<ResponseBody> response) {
+            public void onResponse(Call<List<Usuario>> call, Response
+                    <List<Usuario>> response) {
                 try {
-                    System.out.println(response.body().string());
-                    List<String> contes = new ArrayList<String>();
-                    JSONObject obj = new JSONObject(response.body().string());
-                    JSONArray lista = obj.optJSONArray("");
-                    JSONObject json_data = lista.getJSONObject(0);
 
-                    System.out.println(json_data.get("nombre").toString()+"JSON");
+                    List<Usuario> usuarios = response.body();
+                    String[]  Conductores = new String[usuarios.size()];
+                    for (int i = 0; i < usuarios.size(); i++) {
+                        LatLng Conductor = new LatLng(Double.parseDouble(usuarios.get(i).getLat()), Double.parseDouble(usuarios.get(i).getLongs()));
+                        map.addMarker(new MarkerOptions().position(Conductor).title("Conductor: "+usuarios.get(i).getUsuario()));
 
-                } catch (IOException e) {
+                    }
+
+                    //  JSONArray lista = obj.optJSONArray("");
+                    //   JSONObject json_data = lista.getJSONObject(0);
+
+                    //   System.out.println(json_data.get("nombre").toString()+"JSON");
+
+                } catch (Exception e) {
                     e.printStackTrace();
                     System.out.println(e.getMessage());
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> _, Throwable t) {
+            public void onFailure(Call<List<Usuario>> _, Throwable t) {
                 t.printStackTrace();
                 System.out.println(t.getMessage());
             }
         });
 
+
+
     }
+
+
+
 
     @Override
     public void onPause() {
