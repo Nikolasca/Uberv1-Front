@@ -28,7 +28,21 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.GeoApiContext;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 import  static  Util.Constantes.MAPVIEW_BUNDLE_KEY;
 
@@ -79,15 +93,6 @@ public class Maps extends Fragment implements OnMapReadyCallback {
     }
 
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -125,13 +130,7 @@ public class Maps extends Fragment implements OnMapReadyCallback {
                 != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+
             return;
         }
         map.setMyLocationEnabled(true);
@@ -151,6 +150,44 @@ public class Maps extends Fragment implements OnMapReadyCallback {
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentL,15));
 
 
+        });
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .build();
+        final HerokuService service = retrofit.create(HerokuService.class);
+        TraerC(service);
+
+
+    }
+    private void TraerC(HerokuService service){
+        Call<ResponseBody> call = service.TraerConductores();
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> _,
+                                   Response<ResponseBody> response) {
+                try {
+                    System.out.println(response.body().string());
+                    List<String> contes = new ArrayList<String>();
+                    JSONObject obj = new JSONObject(response.body().string());
+                    JSONArray lista = obj.optJSONArray("");
+                    JSONObject json_data = lista.getJSONObject(0);
+
+                    System.out.println(json_data.get("nombre").toString()+"JSON");
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println(e.getMessage());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> _, Throwable t) {
+                t.printStackTrace();
+                System.out.println(t.getMessage());
+            }
         });
 
     }

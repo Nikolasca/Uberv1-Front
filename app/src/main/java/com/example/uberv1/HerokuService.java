@@ -32,6 +32,13 @@ public interface HerokuService {
     Call<ResponseBody> Login(@Field("user") String name,
                              @Field("pass") String pass);
 
+    @GET("servicio/Conductores")
+    Call<ResponseBody> TraerConductores();
+
+    @FormUrlEncoded
+    @POST("servicio/UpdateL")
+    Call<ResponseBody> ActualizarLocation(@Field("id") int id,@Field("Lat") double Lat,@Field("Long") double Long);
+
 
 
 

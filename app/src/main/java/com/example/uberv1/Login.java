@@ -64,6 +64,7 @@ public class Login extends AppCompatActivity {
                                 Log.putExtra("nombre", parts[1]);
                                 Log.putExtra("Tipo", parts[3]);
                                 Log.putExtra("Email", parts[4]);
+                                Log.putExtra("id", parts[5]);
                                 startActivity(Log);
                             }
                         } catch (IOException e) {

@@ -72,15 +72,12 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="telefono"
         android:inputType="phone"
-        app:layout_constraintBottom_toBottomOf="@+id/IrGenerarViaje"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Email"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/Email" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -105,46 +102,57 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/fondoblanco"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/IrGenerarViaje"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.428"
-         />
+        app:layout_constraintVertical_bias="0.428" />
 
-    <ImageButton
-        android:id="@+id/IrGenerarViaje"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="40dp"
-        android:background="@drawable/fondoblanco"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <ImageButton
         android:id="@+id/IrHistorialViajes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/fondoblanco"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.542"
-        app:layout_constraintStart_toEndOf="@+id/IrGenerarViaje"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.304"
-         />
+        app:layout_constraintVertical_bias="0.304" />
+
+    <Button
+        android:id="@+id/IrGenerarViaje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="112dp"
+        android:layout_marginEnd="8dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/telefono" />
+
+    <Button
+        android:id="@+id/botonp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="92dp"
+        android:layout_marginEnd="24dp"
+        android:text="pruebaconductores"
+        app:layout_constraintEnd_toStartOf="@+id/IrGenerarViaje"
+        app:layout_constraintTop_toBottomOf="@+id/telefono" />
+
+    <TextView
+        android:id="@+id/texto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="144dp"
+        android:text="HOLA"
+        app:layout_constraintBottom_toTopOf="@+id/botonp"
+        app:layout_constraintEnd_toEndOf="@+id/telefono"
+        app:layout_constraintTop_toBottomOf="@+id/telefono"
+        app:layout_constraintVertical_bias="0.523" />
 
 </android.support.constraint.ConstraintLayout>
