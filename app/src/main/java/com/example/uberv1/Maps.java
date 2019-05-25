@@ -2,7 +2,6 @@ package com.example.uberv1;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.arch.lifecycle.Transformations;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -12,10 +11,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,13 +26,11 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.gson.Gson;
 import com.google.maps.DirectionsApiRequest;
 import com.google.maps.GeoApiContext;
 import com.google.maps.PendingResult;
@@ -43,17 +38,10 @@ import com.google.maps.internal.PolylineEncoding;
 import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.DirectionsRoute;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.slf4j.MarkerFactory;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -63,7 +51,7 @@ import android.view.View.OnClickListener;
 
 import  static  Util.Constantes.MAPVIEW_BUNDLE_KEY;
 
-public class Maps extends Fragment implements OnMapReadyCallback,View.OnClickListener,GoogleMap.OnInfoWindowClickListener {
+public class Maps extends Fragment implements OnMapReadyCallback, OnClickListener,GoogleMap.OnInfoWindowClickListener, GoogleMap.OnPolylineClickListener {
     private static final String TAG = "";
     private FusedLocationProviderClient mFusedLocation;
     private GoogleMap map;
@@ -72,6 +60,7 @@ public class Maps extends Fragment implements OnMapReadyCallback,View.OnClickLis
     private RecyclerView mUserListRecyclerView;
     private GeoApiContext mGeoApicontext = null;
     private Location loc;
+    private ArrayList<PolylineData> mPolylinesData = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -176,6 +165,7 @@ public class Maps extends Fragment implements OnMapReadyCallback,View.OnClickLis
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentL,15));
         map.setOnInfoWindowClickListener(this);
 
+
         });
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
@@ -213,7 +203,7 @@ public class Maps extends Fragment implements OnMapReadyCallback,View.OnClickLis
                 System.out.println(t.getMessage());
             }
         });
-
+       map.setOnPolylineClickListener(this);
 
 
     }
@@ -311,6 +301,14 @@ public class Maps extends Fragment implements OnMapReadyCallback,View.OnClickLis
             @Override
             public void run() {
                 Log.d(TAG, "run: result routes: " + result.routes.length);
+                if(mPolylinesData.size()>0){
+                    for (PolylineData polylineData: mPolylinesData){
+
+                        polylineData.getPolyline().remove();
+                    }
+                    mPolylinesData.clear();
+                    mPolylinesData = new ArrayList<>();
+                }
 
                 for(DirectionsRoute route: result.routes){
                     Log.d(TAG, "run: leg: " + route.legs[0].toString());
@@ -331,10 +329,26 @@ public class Maps extends Fragment implements OnMapReadyCallback,View.OnClickLis
                     Polyline polyline = map.addPolyline(new PolylineOptions().addAll(newDecodedPath));
                     polyline.setColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
                     polyline.setClickable(true);
+                    mPolylinesData.add(new PolylineData(polyline, route.legs[0]));
 
                 }
             }
         });
     }
 
+    @Override
+    public void onPolylineClick(Polyline polyline) {
+
+        for(PolylineData polylineData: mPolylinesData){
+            Log.d(TAG, "onPolylineClick: toString: " + polylineData.toString());
+            if(polyline.getId().equals(polylineData.getPolyline().getId())){
+                polylineData.getPolyline().setColor(ContextCompat.getColor(getActivity(), R.color.common_google_signin_btn_text_light_pressed));
+                polylineData.getPolyline().setZIndex(1);
+            }
+            else{
+                polylineData.getPolyline().setColor(ContextCompat.getColor(getActivity(), R.color.common_google_signin_btn_text_light_disabled));
+                polylineData.getPolyline().setZIndex(0);
+            }
+        }
+    }
 }
