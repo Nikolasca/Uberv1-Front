@@ -31,8 +31,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class PerfilGenerico extends AppCompatActivity {
-    Button IrGenerarViaje, prueba;
-    ImageButton  IrHistorialViajes, IrHistorialPagos, IrPerfil;
+    Button  prueba;
+    ImageButton  IrHistorialViajes, IrHistorialPagos, IrGenerarViaje;
     EditText Nobe, Type, Email, Telefono;
     TextView texto;
     private FusedLocationProviderClient mFusedLocation;
@@ -70,7 +70,8 @@ public class PerfilGenerico extends AppCompatActivity {
         Email.setText(em);
         texto.setText(id);
         Telefono.setText(id);
-        IrGenerarViaje = (Button) findViewById(R.id.IrGenerarViaje);
+        IrGenerarViaje = (ImageButton) findViewById(R.id.IrGenerarViaje);
+
         IrGenerarViaje.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
