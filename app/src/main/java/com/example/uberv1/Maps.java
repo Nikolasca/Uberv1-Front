@@ -1,15 +1,20 @@
 package com.example.uberv1;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.arch.lifecycle.Transformations;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,13 +31,22 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.Gson;
+import com.google.maps.DirectionsApiRequest;
 import com.google.maps.GeoApiContext;
+import com.google.maps.PendingResult;
+import com.google.maps.internal.PolylineEncoding;
+import com.google.maps.model.DirectionsResult;
+import com.google.maps.model.DirectionsRoute;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.MarkerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,16 +59,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
+import android.view.View.OnClickListener;
 
 import  static  Util.Constantes.MAPVIEW_BUNDLE_KEY;
 
-public class Maps extends Fragment implements OnMapReadyCallback {
+public class Maps extends Fragment implements OnMapReadyCallback,View.OnClickListener,GoogleMap.OnInfoWindowClickListener {
+    private static final String TAG = "";
     private FusedLocationProviderClient mFusedLocation;
+    private GoogleMap map;
 
     private MapView mMapView;
     private RecyclerView mUserListRecyclerView;
     private GeoApiContext mGeoApicontext = null;
+    private Location loc;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,6 +93,7 @@ public class Maps extends Fragment implements OnMapReadyCallback {
         initGoogleMap(savedInstanceState);
 
         return view;
+
     }
     private void initGoogleMap(Bundle savedInstanceState){
         // *** IMPORTANT ***
@@ -89,6 +107,9 @@ public class Maps extends Fragment implements OnMapReadyCallback {
         mMapView.onCreate(mapViewBundle);
 
         mMapView.getMapAsync(this);
+        if(mGeoApicontext == null) mGeoApicontext = new GeoApiContext.Builder()
+                .apiKey("AIzaSyBy1YeEPJrLHYDUUmnBnmLbecp1G1okMBA")
+                .build();
     }
     private void initUserListRecyclerView() {
 
@@ -149,9 +170,11 @@ public class Maps extends Fragment implements OnMapReadyCallback {
             Location L =task.getResult();
             Log.d("Hola","Latitud" + L.getLatitude());
             Log.d("Hola","Longitud" + L.getLongitude());
+            this.loc = task.getResult();
+    this.map =map;
             LatLng currentL = new LatLng(L.getLatitude(),L.getLongitude());
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentL,15));
-
+        map.setOnInfoWindowClickListener(this);
 
         });
         Retrofit retrofit = new Retrofit.Builder()
@@ -171,14 +194,12 @@ public class Maps extends Fragment implements OnMapReadyCallback {
                     String[]  Conductores = new String[usuarios.size()];
                     for (int i = 0; i < usuarios.size(); i++) {
                         LatLng Conductor = new LatLng(Double.parseDouble(usuarios.get(i).getLat()), Double.parseDouble(usuarios.get(i).getLongs()));
+
                         map.addMarker(new MarkerOptions().position(Conductor).title("Conductor: "+usuarios.get(i).getUsuario()));
+
 
                     }
 
-                    //  JSONArray lista = obj.optJSONArray("");
-                    //   JSONObject json_data = lista.getJSONObject(0);
-
-                    //   System.out.println(json_data.get("nombre").toString()+"JSON");
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -222,4 +243,98 @@ public class Maps extends Fragment implements OnMapReadyCallback {
 
 
     }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        marker.setSnippet("¿Ver la ruta seleccionada?");
+
+            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage(marker.getSnippet())
+                    .setCancelable(true)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                            calculateDirections(marker);
+                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                            dialog.cancel();
+                        }
+                    });
+            final AlertDialog alert = builder.create();
+            alert.show();
+        }
+
+    private void calculateDirections(Marker marker){
+        Log.d(TAG, "calculateDirections: calculating directions.");
+
+        com.google.maps.model.LatLng destination = new com.google.maps.model.LatLng(
+                marker.getPosition().latitude,
+                marker.getPosition().longitude
+        );
+        DirectionsApiRequest directions = new DirectionsApiRequest(mGeoApicontext);
+
+        directions.alternatives(true);
+        directions.origin(
+                new com.google.maps.model.LatLng(
+                        this.loc.getLatitude(),
+                        this.loc.getLongitude()
+                )
+        );
+        Log.d(TAG, "calculateDirections: destination: " + destination.toString());
+        directions.destination(destination).setCallback(new PendingResult.Callback<DirectionsResult>() {
+            @Override
+            public void onResult(DirectionsResult result) {
+                Log.d(TAG, "calculateDirections: routes: " + result.routes[0].toString());
+                Log.d(TAG, "calculateDirections: duration: " + result.routes[0].legs[0].duration);
+                Log.d(TAG, "calculateDirections: distance: " + result.routes[0].legs[0].distance);
+                Log.d(TAG, "calculateDirections: geocodedWayPoints: " + result.geocodedWaypoints[0].toString());
+                addPolylinesToMap(result);
+            }
+
+            @Override
+            public void onFailure(Throwable e) {
+                Log.e(TAG, "calculateDirections: Failed to get directions: " + e.getMessage() );
+
+            }
+        });
+    }
+
+    private void addPolylinesToMap(final DirectionsResult result){
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                Log.d(TAG, "run: result routes: " + result.routes.length);
+
+                for(DirectionsRoute route: result.routes){
+                    Log.d(TAG, "run: leg: " + route.legs[0].toString());
+                    List<com.google.maps.model.LatLng> decodedPath = PolylineEncoding.decode(route.overviewPolyline.getEncodedPath());
+
+                    List<LatLng> newDecodedPath = new ArrayList<>();
+
+                    // This loops through all the LatLng coordinates of ONE polyline.
+                    for(com.google.maps.model.LatLng latLng: decodedPath){
+
+//                        Log.d(TAG, "run: latlng: " + latLng.toString());
+
+                        newDecodedPath.add(new LatLng(
+                                latLng.lat,
+                                latLng.lng
+                        ));
+                    }
+                    Polyline polyline = map.addPolyline(new PolylineOptions().addAll(newDecodedPath));
+                    polyline.setColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+                    polyline.setClickable(true);
+
+                }
+            }
+        });
+    }
+
 }

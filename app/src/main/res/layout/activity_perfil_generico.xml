@@ -127,8 +127,7 @@
         android:id="@+id/IrGenerarViaje"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:text="Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/telefono" />
@@ -137,8 +136,8 @@
         android:id="@+id/botonp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="96dp"
         android:text="pruebaconductores"
         app:layout_constraintEnd_toStartOf="@+id/IrGenerarViaje"
         app:layout_constraintTop_toBottomOf="@+id/telefono" />
