@@ -14,11 +14,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
+/*import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-
+*/
 import java.io.IOException;
 
 import okhttp3.ResponseBody;
