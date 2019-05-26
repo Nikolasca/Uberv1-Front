@@ -124,7 +124,7 @@ public class Maps extends Fragment implements  OnMapReadyCallback, OnClickListen
 
         mMapView.getMapAsync(this);
         if(mGeoApicontext == null) mGeoApicontext = new GeoApiContext.Builder()
-                .apiKey("AIzaSyBy1YeEPJrLHYDUUmnBnmLbecp1G1okMBA")
+                .apiKey("AIzaSyBzpncXoRqGc8Bp9UXgxWcatDv_-yIir9M")
                 .build();
     }
     private void initUserListRecyclerView() {
