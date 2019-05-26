@@ -46,6 +46,10 @@ public interface HerokuService {
     @POST("servicio/Acceso")
     Call<ResponseBody> AccesoGeneral(@Field("cadena") String Cadena);
 
+    @FormUrlEncoded
+    @POST("servicio/Crear")
+    Call<ResponseBody>Crear(@Field("cadena") String Cadena);
+
 
 
 
