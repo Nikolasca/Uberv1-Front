@@ -48,7 +48,7 @@ public interface HerokuService {
 
     @FormUrlEncoded
     @POST("servicio/Crear")
-    Call<ResponseBody>Crear(@Field("cadena") String Cadena);
+    Call<ResponseBody>Crear(@Field("nombre") String nombre, @Field("pass") String pass,@Field("tipo") String tipo,@Field("nombreCompleto") String nombreCompleto,@Field("telefono")int telefono, @Field("documento")String documento,@Field("email")String email);
 
 
 

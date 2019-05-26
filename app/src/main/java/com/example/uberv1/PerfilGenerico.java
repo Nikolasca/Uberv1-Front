@@ -106,7 +106,7 @@ public class PerfilGenerico extends AppCompatActivity {
             return;
         }
 
-        mFusedLocation.getLastLocation().addOnCompleteListener(task -> {
+     /*   mFusedLocation.getLastLocation().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
             }
             Location L = task.getResult();
@@ -134,7 +134,7 @@ public class PerfilGenerico extends AppCompatActivity {
 
         });
 
-
+*/
     }
 
 }
