@@ -66,7 +66,7 @@ private boolean mLocationPermissionGranthed=false;
         Registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Registro = new Intent(MainActivity.this,RegistroPasajero.class);
+                Intent Registro = new Intent(MainActivity.this,Registro_2.class);
                 startActivity(Registro);
             }
         });
