@@ -54,7 +54,7 @@ import android.widget.Button;
 
 import  static  Util.Constantes.MAPVIEW_BUNDLE_KEY;
 
-public class Maps extends Fragment implements OnMapReadyCallback, OnClickListener,GoogleMap.OnInfoWindowClickListener, GoogleMap.OnPolylineClickListener {
+public class Maps extends Fragment implements  OnMapReadyCallback, OnClickListener,GoogleMap.OnInfoWindowClickListener, GoogleMap.OnPolylineClickListener {
     Button  Confirmar;
     private static final String TAG = "";
     private FusedLocationProviderClient mFusedLocation;
@@ -80,12 +80,21 @@ public class Maps extends Fragment implements OnMapReadyCallback, OnClickListene
 
                 this.NombrePasajero = nombre;
                 this.id = id;
-                Confirmar = (Button) getView().findViewById(R.id.btn);
+
 
 
         }
 
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Confirmar = (Button) getView().findViewById(R.id.btn);
+        Confirmar.setEnabled(false);
+
+}
+
     @Override
     public View onCreateView (@NonNull
     LayoutInflater inflater, @Nullable
@@ -369,15 +378,17 @@ public class Maps extends Fragment implements OnMapReadyCallback, OnClickListene
             if(polyline.getId().equals(polylineData.getPolyline().getId())){
                 polylineData.getPolyline().setColor(ContextCompat.getColor(getActivity(), R.color.common_google_signin_btn_text_light_pressed));
                 polylineData.getPolyline().setZIndex(1);
+                Confirmar.setEnabled(true);
                 Confirmar.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                       String inicio =  polylineData.getLeg().startAddress;
                       String fin = polylineData.getLeg().endAddress;
-                      String tiempo = ""+polylineData.getLeg().duration;
+                      Long tiempo = polylineData.getLeg().duration.inSeconds;
                       String ss = polylineData.getLeg().toString();
                       String Conductor = ConductorElegido;
                       String Pasajero = NombrePasajero;
+                      int monto =  (tiempo.intValue()*500);
 
 
                     }
