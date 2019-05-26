@@ -34,9 +34,11 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.maps.DirectionsApiRequest;
 import com.google.maps.GeoApiContext;
 import com.google.maps.PendingResult;
+import com.google.maps.internal.DurationAdapter;
 import com.google.maps.internal.PolylineEncoding;
 import com.google.maps.model.DirectionsResult;
 import com.google.maps.model.DirectionsRoute;
+import com.google.maps.model.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,13 +50,19 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 
 import  static  Util.Constantes.MAPVIEW_BUNDLE_KEY;
 
 public class Maps extends Fragment implements OnMapReadyCallback, OnClickListener,GoogleMap.OnInfoWindowClickListener, GoogleMap.OnPolylineClickListener {
+    Button  Confirmar;
     private static final String TAG = "";
     private FusedLocationProviderClient mFusedLocation;
     private GoogleMap map;
+    private String ConductorElegido;
+
+    private String NombrePasajero;
+    private int id;
 
     private MapView mMapView;
     private RecyclerView mUserListRecyclerView;
@@ -66,6 +74,16 @@ public class Maps extends Fragment implements OnMapReadyCallback, OnClickListene
     public void onCreate(@Nullable Bundle savedInstanceState) {
         mFusedLocation = LocationServices.getFusedLocationProviderClient(getActivity());
         super.onCreate(savedInstanceState);
+        if(getArguments()!=null){
+                String nombre = getArguments().getString("nombre");
+                int id = getArguments().getInt("id");
+
+                this.NombrePasajero = nombre;
+                this.id = id;
+                Confirmar = (Button) getView().findViewById(R.id.btn);
+
+
+        }
 
     }
     @Override
@@ -249,6 +267,11 @@ public class Maps extends Fragment implements OnMapReadyCallback, OnClickListene
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
                             calculateDirections(marker);
+                            if(ConductorElegido != null){
+                                ConductorElegido= null;
+
+                            }
+                            ConductorElegido = marker.getTitle();
                             dialog.dismiss();
                         }
                     })
@@ -331,7 +354,9 @@ public class Maps extends Fragment implements OnMapReadyCallback, OnClickListene
                     polyline.setClickable(true);
                     mPolylinesData.add(new PolylineData(polyline, route.legs[0]));
 
+
                 }
+
             }
         });
     }
@@ -344,6 +369,19 @@ public class Maps extends Fragment implements OnMapReadyCallback, OnClickListene
             if(polyline.getId().equals(polylineData.getPolyline().getId())){
                 polylineData.getPolyline().setColor(ContextCompat.getColor(getActivity(), R.color.common_google_signin_btn_text_light_pressed));
                 polylineData.getPolyline().setZIndex(1);
+                Confirmar.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                      String inicio =  polylineData.getLeg().startAddress;
+                      String fin = polylineData.getLeg().endAddress;
+                      String tiempo = ""+polylineData.getLeg().duration;
+                      String ss = polylineData.getLeg().toString();
+                      String Conductor = ConductorElegido;
+                      String Pasajero = NombrePasajero;
+
+
+                    }
+                });
             }
             else{
                 polylineData.getPolyline().setColor(ContextCompat.getColor(getActivity(), R.color.common_google_signin_btn_text_light_disabled));

@@ -42,6 +42,13 @@ public interface HerokuService {
     Call<ResponseBody> ActualizarLocation(@Field("id") int id,@Field("Lat") double Lat,@Field("Long") double Long);
 
 
+    @FormUrlEncoded
+    @POST("servicio/Acceso")
+    Call<ResponseBody> AccesoGeneral(@Field("cadena") String Cadena);
+
+
+
+
 
 
 }

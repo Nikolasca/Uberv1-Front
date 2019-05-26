@@ -1,7 +1,7 @@
 package com.example.uberv1;
 
-import com.google.android.gms.maps.model.Polyline;
-import com.google.maps.model.DirectionsLeg;
+        import com.google.android.gms.maps.model.Polyline;
+        import com.google.maps.model.DirectionsLeg;
 
 public class PolylineData {
 
