@@ -54,6 +54,8 @@ public class PerfilGenerico extends AppCompatActivity {
         String em = getIntent().getExtras().getString("Email");
         String id = getIntent().getExtras().getString("id");
 
+
+
         //String tel = getIntent().getExtras().getString();
 
         super.onCreate(savedInstanceState);
@@ -76,7 +78,10 @@ public class PerfilGenerico extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent IrGenerarViaje = new Intent(PerfilGenerico.this, Prueba.class);
+                IrGenerarViaje.putExtra("id",id);
+                IrGenerarViaje.putExtra("nombre",nombre);
                 startActivity(IrGenerarViaje);
+
             }
         });
         IrHistorialViajes = (ImageButton) findViewById(R.id.IrHistorialViajes);

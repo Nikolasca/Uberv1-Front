@@ -11,29 +11,9 @@
         android:name="com.example.uberv1.Maps"
         android:layout_width="match_parent"
         android:layout_height="230pt"
+        android:layout_marginBottom="188dp"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout="@layout/activity_maps"
         tools:layout_editor_absoluteX="0dp"></fragment>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Pago Tarjeta"
-        app:layout_constraintBottom_toTopOf="@+id/map_container"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="152dp"
-        android:layout_marginBottom="8dp"
-        android:text="Pago Efectivo"
-        app:layout_constraintBottom_toTopOf="@+id/map_container"
-        app:layout_constraintEnd_toStartOf="@+id/button"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.938" />
 </android.support.constraint.ConstraintLayout>
