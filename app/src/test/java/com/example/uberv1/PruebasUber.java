@@ -444,5 +444,22 @@ public class PruebasUber {
         assertEquals(E, A);
     }
 
-    
+    @Test
+    public void CrearGrupo() {
+
+        String E = "";
+        String A= "";
+
+        assertEquals(E, A);
+    }
+
+    @Test
+    public void TransporteIndividual() {
+
+        String E = "";
+        String A= "";
+
+        assertEquals(E, A);
+    }
+
 }
