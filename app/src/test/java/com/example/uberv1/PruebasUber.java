@@ -169,7 +169,7 @@ public class PruebasUber {
             @Override
             public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
         });
-        
+
         assertEquals(E, A);
     }
 
@@ -177,7 +177,6 @@ public class PruebasUber {
     public void HacerPagosTarjeta() {
 
         String E = "Pago creado, ID: 123";
-        String A= "";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
@@ -212,12 +211,13 @@ public class PruebasUber {
             @Override
             public void onResponse(Call<ResponseBody>  _, Response<ResponseBody>  response) {
                 try {
-                    String A = response.body().string();
+                    A = response.body().string();
                 } catch (Exception e) {e.printStackTrace();}
             }
             @Override
             public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
         });
+
         assertEquals(E, A);
     }
 
@@ -225,7 +225,6 @@ public class PruebasUber {
     public void HacerPagosEfectivo() {
 
         String E = "Pago creado, ID: 123";
-        String A= "";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
@@ -262,21 +261,20 @@ public class PruebasUber {
             @Override
             public void onResponse(Call<ResponseBody>  _, Response<ResponseBody>  response) {
                 try {
-                    String A = response.body().string();
+                    A = response.body().string();
                 } catch (Exception e) {e.printStackTrace();}
             }
             @Override
             public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
         });
+
         assertEquals(E, A);
     }
 
     @Test
     public void VerPagosPasajero() {
 
-        String E = "";
-        String A= "";
-
+        String E = "Datos efectivo {id=0, nombrePasajero=UserName, nombreConductor=Conductor, monto=3000, otros=NumTarjeta,Tipo,CVV}";
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
                 .addConverterFactory(ScalarsConverterFactory.create())
@@ -315,40 +313,18 @@ public class PruebasUber {
             public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
         });
 
-        Call<ResponseBody> call4 = service.AccesoGeneral("CrearReserva,"+"UserName"+","+"123,"+"C"+"-"+"27/05/2019-"+"Concepto"+"-"+"D"+"-");
+        Call call4 = service.AccesoGeneral("verPagosP,"+"UserName,"+"123,"+"UserName"+"-");
         call4.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> _, Response<ResponseBody> response) {
-                try {} catch (Exception e) {e.printStackTrace();}
-            }
-            @Override
-            public void onFailure(Call<ResponseBody> _, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-
-        Call call5 = service.AccesoGeneral("crearEfectivo,"+"UserName"+","+"123,"+0+"-"+"UserName"+"-"+"Conductor"+"-"+(float)3000+"-"
-                +"Moneda,Monto dado,Monto devuelto"+"-");
-        call5.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody>  _, Response<ResponseBody>  response) {
-                try {} catch (Exception e) {e.printStackTrace();}
-            }
-            @Override
-            public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
-        });
-
-        Call call6 = service.AccesoGeneral("verPagosP,"+"UserName,"+"123,"+"UserName"+"-");
-        call6.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call _, Response response) {
                 try {
-                    String A = response.body().toString();
+                    A = response.body().toString();
                 } catch (Exception e) {e.printStackTrace();}
             }
             @Override
             public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
         });
+
         assertEquals(E, A);
     }
 
@@ -374,14 +350,14 @@ public class PruebasUber {
             @Override
             public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
         });
+
         assertEquals(E, A);
     }
 
     @Test
     public void CrearTrnasporteIndividual() {
 
-        String E = "Vehículo Creado";
-        String A= "";
+        String E = "Vehículo creado";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
@@ -394,12 +370,13 @@ public class PruebasUber {
             @Override
             public void onResponse(Call _,Response response) {
                 try {
-                    String A = response.body().toString();
+                    A = response.body().toString();
                 } catch (Exception e) {e.printStackTrace();}
             }
             @Override
             public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
         });
+
         assertEquals(E, A);
     }
 }
