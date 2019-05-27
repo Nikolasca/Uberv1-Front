@@ -48,7 +48,8 @@
         app:layout_constraintBottom_toTopOf="@+id/Respuesta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/buttonrounded"/>
 
     <TextView
         android:id="@+id/Respuesta"

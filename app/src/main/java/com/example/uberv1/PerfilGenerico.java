@@ -65,7 +65,6 @@ public class PerfilGenerico extends AppCompatActivity {
         Email = (EditText) findViewById(R.id.Email);
         Telefono = (EditText) findViewById(R.id.telefono);
         System.out.println(nombre);
-        prueba = (Button) findViewById(R.id.botonp);
         texto = (TextView) findViewById(R.id.texto);
         Nobe.setText(nombre);
         Type.setText(tipo);
