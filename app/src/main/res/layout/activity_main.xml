@@ -12,14 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="412dp"
+        android:layout_marginTop="396dp"
         android:layout_marginEnd="32dp"
+        android:background="@drawable/buttonrounded"
         android:text="login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/buttonrounded"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/IrRegistros"
