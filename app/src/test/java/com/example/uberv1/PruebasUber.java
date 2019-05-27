@@ -20,7 +20,7 @@ public class PruebasUber {
     @Test
     public void LoginAdministrador() throws Exception {
 
-        String E = "UserNameXX123XXAdministradorXXXX0XXXXXX";
+        String E = "UserNameXX123XXAdministradorXX";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
