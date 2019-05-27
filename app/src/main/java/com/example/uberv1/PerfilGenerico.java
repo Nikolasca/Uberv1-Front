@@ -53,7 +53,7 @@ public class PerfilGenerico extends AppCompatActivity {
         String tipo = getIntent().getExtras().getString("Tipo");
         String em = getIntent().getExtras().getString("Email");
         String id = getIntent().getExtras().getString("id");
-
+        String Pass = getIntent().getExtras().getString("Pass");
 
 
         //String tel = getIntent().getExtras().getString();
@@ -97,6 +97,7 @@ public class PerfilGenerico extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent IrHistorialPagos = new Intent(PerfilGenerico.this, HistorialPagos.class);
+                IrHistorialPagos.putExtra("name",nombre);
                 startActivity(IrHistorialPagos);
             }
         });
@@ -112,13 +113,15 @@ public class PerfilGenerico extends AppCompatActivity {
             Location L = task.getResult();
             LocationLog = new LatLng(L.getLatitude(),L.getLongitude());
 
-            Call<ResponseBody> call = service.ActualizarLocation(Integer.parseInt(id),L.getLatitude(),L.getLongitude());
+            Call<ResponseBody> call = service.ActP(Integer.parseInt(id),L.getLatitude(),L.getLongitude());
+
+
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> _,
                                        Response<ResponseBody> response) {
                     try {
-                         System.out.print(response.body().toString());
+                         System.out.println("Respuesta: "+response.body().string());
                     } catch (Exception e) {
                         e.printStackTrace();
                         // textView.setText(e.getMessage());
@@ -133,7 +136,6 @@ public class PerfilGenerico extends AppCompatActivity {
             });
 
         });
-
 
     }
 

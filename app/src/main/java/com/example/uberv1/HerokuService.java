@@ -48,8 +48,11 @@ public interface HerokuService {
 
     @FormUrlEncoded
     @POST("servicio/Crear")
-    Call<ResponseBody>Crear(@Field("cadena") String Cadena);
+    Call<ResponseBody>Crear(@Field("nombre") String nombre, @Field("pass") String pass,@Field("tipo") String tipo,@Field("nombreCompleto") String nombreCompleto,@Field("telefono")int telefono, @Field("documento")String documento,@Field("email")String email);
 
+    @FormUrlEncoded
+    @POST("servicio/ActPos")
+    Call<ResponseBody>ActP(@Field("id") int id, @Field("lat") double lat, @Field("lon") double lon);
 
 
 

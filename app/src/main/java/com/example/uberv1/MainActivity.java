@@ -14,11 +14,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Button;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
+/*import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-
+*/
 import java.io.IOException;
 
 import okhttp3.ResponseBody;
@@ -41,17 +41,6 @@ private boolean mLocationPermissionGranthed=false;
         setContentView(R.layout.activity_main);
 
 
-
-
-        Maps = (Button) findViewById(R.id.buttonMaps);
-        Maps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent Maps= new Intent(MainActivity.this,Prueba.class);
-                startActivity(Maps);
-
-            }
-        });
 
         Login =(Button) findViewById(R.id.Login);
         Login.setOnClickListener(new View.OnClickListener() {

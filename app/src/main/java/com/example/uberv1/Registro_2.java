@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.IOException;
 
@@ -22,6 +23,7 @@ public class Registro_2 extends AppCompatActivity {
 
     Button Registro;
     EditText Nombre,Password,Telefono,Email;
+    TextView Mensaje;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class Registro_2 extends AppCompatActivity {
         Password =(EditText) findViewById(R.id.Password);
         Telefono=(EditText) findViewById(R.id.Telefono);
         Email=(EditText) findViewById(R.id.Email);
+        Mensaje = (TextView) findViewById(R.id.textViewR);
 
         Registro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,12 +46,13 @@ public class Registro_2 extends AppCompatActivity {
                         .build();
                 final HerokuService service = retrofit.create(HerokuService.class);
 
-                Call<ResponseBody> call = service.AccesoGeneral("");
+                Call<ResponseBody> call = service.Crear(Nombre.getText().toString(),Password.getText().toString(),"Pasajero","",Integer.parseInt(Telefono.getText().toString()),"", Email.getText().toString());
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> _,
                                            Response<ResponseBody> response) {
                         try {
+                            Mensaje.setText(response.body().string());
                          System.out.println(response.body().toString());
 
                         } catch (Exception e) {

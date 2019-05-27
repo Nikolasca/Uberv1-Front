@@ -5,10 +5,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -43,19 +45,25 @@ import com.google.maps.model.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ThreadLocalRandom;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
+
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Switch;
 
 import  static  Util.Constantes.MAPVIEW_BUNDLE_KEY;
 
 public class Maps extends Fragment implements  OnMapReadyCallback, OnClickListener,GoogleMap.OnInfoWindowClickListener, GoogleMap.OnPolylineClickListener {
     Button  Confirmar;
+    Switch sw;
     private static final String TAG = "";
     private FusedLocationProviderClient mFusedLocation;
     private GoogleMap map;
@@ -92,6 +100,8 @@ public class Maps extends Fragment implements  OnMapReadyCallback, OnClickListen
         super.onViewCreated(view, savedInstanceState);
         Confirmar = (Button) getView().findViewById(R.id.btn);
         Confirmar.setEnabled(false);
+        sw = (Switch) getView().findViewById(R.id.switch2);
+
 
 }
 
@@ -124,7 +134,7 @@ public class Maps extends Fragment implements  OnMapReadyCallback, OnClickListen
 
         mMapView.getMapAsync(this);
         if(mGeoApicontext == null) mGeoApicontext = new GeoApiContext.Builder()
-                .apiKey("AIzaSyBy1YeEPJrLHYDUUmnBnmLbecp1G1okMBA")
+                .apiKey("AIzaSyBzpncXoRqGc8Bp9UXgxWcatDv_-yIir9M")
                 .build();
     }
     private void initUserListRecyclerView() {
@@ -191,6 +201,7 @@ public class Maps extends Fragment implements  OnMapReadyCallback, OnClickListen
             LatLng currentL = new LatLng(L.getLatitude(),L.getLongitude());
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentL,15));
         map.setOnInfoWindowClickListener(this);
+
 
 
         });
@@ -380,15 +391,104 @@ public class Maps extends Fragment implements  OnMapReadyCallback, OnClickListen
                 polylineData.getPolyline().setZIndex(1);
                 Confirmar.setEnabled(true);
                 Confirmar.setOnClickListener(new OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                     @Override
                     public void onClick(View v) {
+
                       String inicio =  polylineData.getLeg().startAddress;
+                        String[] parts = polylineData.getLeg().startAddress.split(",");
                       String fin = polylineData.getLeg().endAddress;
+                        String[] parts2 = polylineData.getLeg().endAddress.split(",");
                       Long tiempo = polylineData.getLeg().duration.inSeconds;
                       String ss = polylineData.getLeg().toString();
                       String Conductor = ConductorElegido;
                       String Pasajero = NombrePasajero;
-                      int monto =  (tiempo.intValue()*500);
+                      int monto =  2*tiempo.intValue();
+
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
+                                .addConverterFactory(ScalarsConverterFactory.create())
+                                .build();
+                        final HerokuService service = retrofit.create(HerokuService.class);
+
+                        Call<ResponseBody> call = service.AccesoGeneral("CrearReserva,"+NombrePasajero+","+"123,"+parts[0]+"-"+"27/05/2019-"+"Concepto"+"-"+parts2[0]+"-");
+                        System.out.println("CrearReserva,"+NombrePasajero+","+"123,"+parts[0]+"-"+"27/05/2019-"+"Concepto"+"-"+parts2[0]+"-");
+                        call.enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> _,
+                                                   Response<ResponseBody> response) {
+                                try {
+
+                                    System.out.println(response.body().string());
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBody> _, Throwable t) {
+                                t.printStackTrace();
+
+                            }
+                        });
+                        if(sw.isChecked()) {
+                            int randomNum = ThreadLocalRandom.current().nextInt(1, 100 + 1);
+                            double ran = 5*Math.random();
+                            int idpago = (int)ran;
+                            Call<ResponseBody> call2 = service.AccesoGeneral("crearCredito," + NombrePasajero + "," + "123," + randomNum + "-" + NombrePasajero+"-" +Conductor+"-" + (float) monto+"-" + "Otros" + "-");
+                            System.out.println("METODO PAGO"+"CrearReserva," + NombrePasajero + "," + "123," + parts[0] + "-" + "27/05/2019-" + "Concepto" + "-" + parts2[0] + "-");
+                            call2.enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> _,
+                                                       Response<ResponseBody> response) {
+                                    try {
+
+                                        System.out.println("EFECTIVO"+response.body().string());
+
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseBody> _, Throwable t) {
+                                    t.printStackTrace();
+
+                                }
+                            });
+
+                        }
+                        else {
+                            int randomNum = ThreadLocalRandom.current().nextInt(1, 100 + 1);
+
+                            Call<ResponseBody> call3 = service.AccesoGeneral("crearEfectivo," + NombrePasajero + "," + "123," + randomNum + "-" + NombrePasajero+"-" +Conductor+"-" + (float) monto+"-" + "Otros" + "-");
+                            System.out.println("METODO PAGO"+"CrearReserva," + NombrePasajero + "," + "123," + parts[0] + "-" + "27/05/2019-" + "Concepto" + "-" + parts2[0] + "-");
+                            call3.enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> _,
+                                                       Response<ResponseBody> response) {
+                                    try {
+
+                                        System.out.println(response.body().string());
+
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseBody> _, Throwable t) {
+                                    t.printStackTrace();
+
+                                }
+                            });
+
+
+                        }
 
 
                     }
