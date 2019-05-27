@@ -97,6 +97,7 @@ public class PerfilGenerico extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent IrHistorialPagos = new Intent(PerfilGenerico.this, HistorialPagos.class);
+                IrHistorialPagos.putExtra("name",nombre);
                 startActivity(IrHistorialPagos);
             }
         });

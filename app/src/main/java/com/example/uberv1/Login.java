@@ -67,17 +67,36 @@ public class Login extends AppCompatActivity {
                             Mensaje.setText(parts[0]);
                             // textView.setText(parts[0]);
                             if (("UsuarioAceptado").compareToIgnoreCase(parts[0]) == 0) {
+                                if (parts[3].compareToIgnoreCase("Pasajero")==0) {
 
+                                    Intent Log = new Intent(Login.this, PerfilGenerico.class);
+                                    Log.putExtra("nombre", parts[1]);
+                                    Log.putExtra("Tipo", parts[3]);
+                                    Log.putExtra("Email", parts[5]);
+                                    Log.putExtra("Pass", parts[4]);
+                                    Log.putExtra("id", parts[6]);
+                                    System.out.println("Lat :" + parts[7]);
+                                    System.out.println("Long :" + parts[8]);
+                                    startActivity(Log);
+                                }
+                                if(parts[3].compareToIgnoreCase("Conductor")==0){
+                                    Intent Log = new Intent(Login.this, PerfilConductor.class);
+                                    Log.putExtra("nombre", parts[1]);
+                                    Log.putExtra("Tipo", parts[3]);
+                                    Log.putExtra("Email", parts[5]);
+                                    Log.putExtra("Pass", parts[4]);
+                                    Log.putExtra("id", parts[6]);
+                                    System.out.println("Lat :" + parts[7]);
+                                    System.out.println("Long :" + parts[8]);
+                                    startActivity(Log);
 
-                                Intent Log = new Intent(Login.this, PerfilGenerico.class);
-                                Log.putExtra("nombre", parts[1]);
-                                Log.putExtra("Tipo", parts[3]);
-                                Log.putExtra("Email", parts[5]);
-                                Log.putExtra("Pass", parts[4]);
-                                 Log.putExtra("id", parts[6]);
-                                System.out.println("Lat :"+parts[7]);
-                                System.out.println("Long :"+parts[8]);
-                                startActivity(Log);
+                                }
+                                if(parts[3].compareToIgnoreCase("Administrador")==0){
+                                    Intent Log = new Intent(Login.this, PerfilAdministrador.class);
+                                    Log.putExtra("nombre", parts[1]);
+                                    startActivity(Log);
+
+                                }
                             }
                         } catch (IOException e) {
                             e.printStackTrace();

@@ -63,7 +63,7 @@ TextView Pass2;
                         tipo= "Administrador";
                     }
                     System.out.println(tipo);
-                Call<ResponseBody> call = service.Register(Nombre.getText().toString(),Email.getText().toString(),Integer.parseInt(telefono.getText().toString()),Pass.getText().toString(),tipo);
+                Call<ResponseBody> call = service.Crear(Nombre.getText().toString(),Pass.getText().toString(),tipo,"",Integer.parseInt(telefono.getText().toString()),"", Email.getText().toString());
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> _,

@@ -46,7 +46,7 @@ public class Registro_2 extends AppCompatActivity {
                         .build();
                 final HerokuService service = retrofit.create(HerokuService.class);
 
-                Call<ResponseBody> call = service.Crear(Nombre.getText().toString(),Password.getText().toString(),"Conductor","",Integer.parseInt(Telefono.getText().toString()),"", Email.getText().toString());
+                Call<ResponseBody> call = service.Crear(Nombre.getText().toString(),Password.getText().toString(),"Pasajero","",Integer.parseInt(Telefono.getText().toString()),"", Email.getText().toString());
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> _,
