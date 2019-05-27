@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 public class PruebasUber {
 
     @Test
-    public void LoginAdministrador() {
+    public void LoginAdministrador() throws Exception {
 
         String E = "UserNameXX123XXAdministradorXXXX0XXXXXX";
         String A= "";
@@ -401,5 +401,4 @@ public class PruebasUber {
         });
         assertEquals(E, A);
     }
-
 }
