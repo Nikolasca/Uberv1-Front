@@ -15,11 +15,12 @@ import static org.junit.Assert.assertEquals;
 
 public class PruebasUber {
 
+    public String A= new String();
+
     @Test
     public void LoginAdministrador() throws Exception {
 
         String E = "UserNameXX123XXAdministradorXXXX0XXXXXX";
-        String A= "";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
@@ -41,11 +42,12 @@ public class PruebasUber {
         call2.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> _, Response<ResponseBody> response) {
-                String A = response.body().toString();
+                A = response.body().toString();
             }
             @Override
             public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
         });
+
         assertEquals(E, A);
     }
 
@@ -53,7 +55,6 @@ public class PruebasUber {
     public void LoginConductor() {
 
         String E = "UserNameXX123XXConductorXXXX0XXXXXX";
-        String A= "";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
@@ -77,12 +78,13 @@ public class PruebasUber {
             @Override
             public void onResponse(Call<ResponseBody> _, Response<ResponseBody> response) {
                 try {
-                    String A = response.body().string();
+                    A = response.body().string();
                 } catch (IOException e) {e.printStackTrace();}
             }
             @Override
             public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
         });
+
         assertEquals(E, A);
     }
 
@@ -90,7 +92,6 @@ public class PruebasUber {
     public void LoginPasajero() {
 
         String E = "UserNameXX123XXPasajeroXXXX0XXXXXX";
-        String A= "";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
@@ -114,13 +115,14 @@ public class PruebasUber {
             @Override
             public void onResponse(Call<ResponseBody> _, Response<ResponseBody> response) {
                 try {
-                    String A = response.body().string();
+                    A = response.body().string();
                     assertEquals(E, A);
                 } catch (IOException e) {e.printStackTrace();}
             }
             @Override
             public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
         });
+
         assertEquals(E, A);
     }
 
@@ -128,7 +130,6 @@ public class PruebasUber {
     public void ReservaRuta() {
 
         String E = "123,A,27/05/2019,Concepto,B";
-        String A= "";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
@@ -162,12 +163,13 @@ public class PruebasUber {
             @Override
             public void onResponse(Call _, Response response) {
                 try {
-                    String A = response.body().toString();
+                    A = response.body().toString();
                 } catch (Exception e) {e.printStackTrace();}
             }
             @Override
             public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
         });
+        
         assertEquals(E, A);
     }
 
@@ -354,7 +356,6 @@ public class PruebasUber {
     public void CrearGrupo() {
 
         String E = "Agrupacion creada";
-        String A= "";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
@@ -367,7 +368,7 @@ public class PruebasUber {
             @Override
             public void onResponse(Call _,Response response) {
                 try {
-                    String A = response.body().toString();
+                    A = response.body().toString();
                 } catch (Exception e) {e.printStackTrace();}
             }
             @Override
@@ -388,7 +389,7 @@ public class PruebasUber {
                 .build();
         final HerokuService service = retrofit.create(HerokuService.class);
 
-        Call call = service.AccesoGeneral("crearVehículo,"+"UserName,"+"123,"+"");
+        Call call = service.AccesoGeneral("CrearVehículo,"+"UserName,"+"123,"+"");
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call _,Response response) {

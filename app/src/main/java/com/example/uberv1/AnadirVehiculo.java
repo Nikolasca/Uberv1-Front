@@ -42,7 +42,7 @@ public class AnadirVehiculo extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<ResponseBody> call = service.AccesoGeneral("crearVehiculo,nikolas,123,"+nombreG.getText().toString()+"-"+NombreV.getText().toString()+"-"+Tipo.getText().toString()+"-"+Placa.getText().toString()+"-"+Cantidad.getText().toString()+"-"+"A"+"-"+"B"+"-"+"C"+"-");
+                Call<ResponseBody> call = service.AccesoGeneral("CrearVehiculo,nikolas,123,"+nombreG.getText().toString()+"-"+NombreV.getText().toString()+"-"+Tipo.getText().toString()+"-"+Placa.getText().toString()+"-"+Cantidad.getText().toString()+"-"+"A"+"-"+"B"+"-"+"C"+"-");
                 call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> _,
