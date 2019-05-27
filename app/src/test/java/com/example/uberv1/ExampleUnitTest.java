@@ -40,8 +40,7 @@ public class ExampleUnitTest {
                 "1234567890", "a@g.com");
         call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> _,
-                                   Response<ResponseBody> response) {
+            public void onResponse(Call<ResponseBody> _, Response<ResponseBody> response) {
                 try {} catch (Exception e) {e.printStackTrace();}
             }
             @Override
@@ -51,13 +50,36 @@ public class ExampleUnitTest {
         Call<ResponseBody> call2 = service.AccesoGeneral("Consultar_Usuario,"+"UserName"+","+"123"+","+"UserName"+"-"+"123");
         call2.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> _,
-                                   Response<ResponseBody> response) {
+            public void onResponse(Call<ResponseBody> _, Response<ResponseBody> response) {
                 try {
                     System.out.println("Respuesta: "+response.body().toString());
                     String CC = response.body().string();
                     assertEquals("UserNameXX123XXPasajeroXXName LastXX6746647XX1234567890XXa@g.comXX", CC);
                 } catch (IOException e) {e.printStackTrace();}
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
+        });
+    }
+
+    @Test
+    public void Reserva() {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .build();
+        final HerokuService service = retrofit.create(HerokuService.class);
+
+        Call<ResponseBody> call = service.AccesoGeneral("CrearReserva,"+"UserName"+","+"123,"+"A"+"-"+"27/05/2019-"+"Concepto"+"-"+"B"+"-");
+        System.out.println("CrearReserva,"+"UserName"+","+"123,"+"A"+"-"+"27/05/2019-"+"Concepto"+"-"+"B"+"-");
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> _, Response<ResponseBody> response) {
+                try {
+                    String CC = response.body().string();
+                    assertEquals("Se creó reserva, ID: 123", CC);
+                } catch (Exception e) {e.printStackTrace();}
             }
             @Override
             public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
