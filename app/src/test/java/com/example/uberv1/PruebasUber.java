@@ -357,7 +357,7 @@ public class PruebasUber {
     @Test
     public void CrearTrnasporteIndividual() {
 
-        String E = "Vehículo creado";
+        String E = "Vehiculo creado";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
