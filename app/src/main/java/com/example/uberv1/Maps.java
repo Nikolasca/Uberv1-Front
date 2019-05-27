@@ -44,11 +44,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
+
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
@@ -191,6 +194,7 @@ public class Maps extends Fragment implements  OnMapReadyCallback, OnClickListen
             LatLng currentL = new LatLng(L.getLatitude(),L.getLongitude());
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(currentL,15));
         map.setOnInfoWindowClickListener(this);
+
 
 
         });
@@ -382,13 +386,45 @@ public class Maps extends Fragment implements  OnMapReadyCallback, OnClickListen
                 Confirmar.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                       String inicio =  polylineData.getLeg().startAddress;
+                        String[] parts = polylineData.getLeg().startAddress.split(",");
                       String fin = polylineData.getLeg().endAddress;
+                        String[] parts2 = polylineData.getLeg().endAddress.split(",");
                       Long tiempo = polylineData.getLeg().duration.inSeconds;
                       String ss = polylineData.getLeg().toString();
                       String Conductor = ConductorElegido;
                       String Pasajero = NombrePasajero;
-                      int monto =  (tiempo.intValue()*500);
+                      int monto =  2*tiempo.intValue();
+
+                        Retrofit retrofit = new Retrofit.Builder()
+                                .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
+                                .addConverterFactory(ScalarsConverterFactory.create())
+                                .build();
+                        final HerokuService service = retrofit.create(HerokuService.class);
+
+                        Call<ResponseBody> call = service.AccesoGeneral("CrearReserva,"+NombrePasajero+","+"123,"+parts[0]+"-"+"27/05/2019-"+"Concepto"+"-"+parts2[0]+"-");
+                        System.out.println("CrearReserva,"+NombrePasajero+","+"123,"+parts[0]+"-"+"27/05/2019-"+"Concepto"+"-"+parts2[0]+"-");
+                        call.enqueue(new Callback<ResponseBody>() {
+                            @Override
+                            public void onResponse(Call<ResponseBody> _,
+                                                   Response<ResponseBody> response) {
+                                try {
+
+                                    System.out.println(response.body().string());
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseBody> _, Throwable t) {
+                                t.printStackTrace();
+
+                            }
+                        });
 
 
                     }

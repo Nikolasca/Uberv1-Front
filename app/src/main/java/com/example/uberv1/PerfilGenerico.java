@@ -112,7 +112,9 @@ public class PerfilGenerico extends AppCompatActivity {
             Location L = task.getResult();
             LocationLog = new LatLng(L.getLatitude(),L.getLongitude());
 
-            Call<ResponseBody> call = service.AccesoGeneral("ActPosicion,"+nombre+","+Pass+","+L.getLatitude()+"-"+L.getLongitude());
+            Call<ResponseBody> call = service.ActP(Integer.parseInt(id),L.getLatitude(),L.getLongitude());
+
+
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> _,
