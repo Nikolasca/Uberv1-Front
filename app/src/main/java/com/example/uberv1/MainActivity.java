@@ -42,17 +42,6 @@ private boolean mLocationPermissionGranthed=false;
 
 
 
-
-        Maps = (Button) findViewById(R.id.buttonMaps);
-        Maps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent Maps= new Intent(MainActivity.this,Prueba.class);
-                startActivity(Maps);
-
-            }
-        });
-
         Login =(Button) findViewById(R.id.Login);
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
