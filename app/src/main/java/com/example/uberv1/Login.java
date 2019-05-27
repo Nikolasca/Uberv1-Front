@@ -94,6 +94,8 @@ public class Login extends AppCompatActivity {
                                 if(parts[3].compareToIgnoreCase("Administrador")==0){
                                     Intent Log = new Intent(Login.this, PerfilAdministrador.class);
                                     Log.putExtra("nombre", parts[1]);
+                                    Log.putExtra("Tipo", parts[3]);
+
                                     startActivity(Log);
 
                                 }
