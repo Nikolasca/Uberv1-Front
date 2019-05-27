@@ -18,6 +18,9 @@ public class PruebasUber {
     @Test
     public void LoginAdministrador() {
 
+        String E = "UserNameXX123XXAdministradorXXXX0XXXXXX";
+        String A= "";
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
                 .addConverterFactory(ScalarsConverterFactory.create())
@@ -34,23 +37,25 @@ public class PruebasUber {
             public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
         });
 
-        Call<ResponseBody> call2 = service.AccesoGeneral("Consultar_Usuario,UserName,123,UserName-123");
+         Call<ResponseBody> call2 = service.AccesoGeneral("Consultar_Usuario,UserName,123,UserName-123");
         call2.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> _, Response<ResponseBody> response) {
                 try {
-                    System.out.println("Respuesta: "+response.body().toString());
-                    String CC = response.body().string();
-                    assertEquals("UserNameXX123XXPasajeroXXName LastXX6746647XX1234567890XXa@g.comXX", CC);
+                    String A = response.body().string();
                 } catch (IOException e) {e.printStackTrace();}
             }
             @Override
             public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
         });
+        assertEquals(E, A);
     }
 
     @Test
     public void LoginConductor() {
+
+        String E = "UserNameXX123XXConductorXXXX0XXXXXX";
+        String A= "";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
@@ -74,17 +79,20 @@ public class PruebasUber {
             @Override
             public void onResponse(Call<ResponseBody> _, Response<ResponseBody> response) {
                 try {
-                    String CC = response.body().string();
-                    assertEquals("UserNameXX123XXConductorXXName LastXX6746647XX1234567890XXa@g.comXX", CC);
+                    String A = response.body().string();
                 } catch (IOException e) {e.printStackTrace();}
             }
             @Override
             public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
         });
+        assertEquals(E, A);
     }
 
     @Test
     public void LoginPasajero() {
+
+        String E = "UserNameXX123XXPasajeroXXXX0XXXXXX";
+        String A= "";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
@@ -108,18 +116,21 @@ public class PruebasUber {
             @Override
             public void onResponse(Call<ResponseBody> _, Response<ResponseBody> response) {
                 try {
-                    System.out.println("Respuesta: "+response.body().toString());
-                    String CC = response.body().string();
-                    assertEquals("UserNameXX123XXPasajeroXXName LastXX6746647XX1234567890XXa@g.comXX", CC);
+                    String A = response.body().string();
+                    assertEquals(E, A);
                 } catch (IOException e) {e.printStackTrace();}
             }
             @Override
             public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
         });
+        assertEquals(E, A);
     }
 
     @Test
-    public void Reservas() {
+    public void ReservaRuta() {
+
+        String E = "123,A,27/05/2019,Concepto,B";
+        String A= "";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
@@ -142,8 +153,7 @@ public class PruebasUber {
         call2.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> _, Response<ResponseBody> response) {
-                try { //String C = response.body().string(); assertEquals("Se creó reserva, ID: 123", C);
-                } catch (Exception e) {e.printStackTrace();}
+                try {} catch (Exception e) {e.printStackTrace();}
             }
             @Override
             public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
@@ -154,17 +164,20 @@ public class PruebasUber {
             @Override
             public void onResponse(Call _, Response response) {
                 try {
-                    String CC = response.body().toString();
-                    assertEquals("123,A,27/05/2019,Concepto,B", CC);
+                    String A = response.body().toString();
                 } catch (Exception e) {e.printStackTrace();}
             }
             @Override
             public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
         });
+        assertEquals(E, A);
     }
 
     @Test
-    public void HacerPagosTarjetas() {
+    public void HacerPagosTarjeta() {
+
+        String E = "Pago creado, ID: 123";
+        String A= "";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
@@ -193,23 +206,26 @@ public class PruebasUber {
             public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
         });
 
-        Call call3 = service.AccesoGeneral("crearCredito,"+"UserName"+","+"123,"+0+"-"+"Pasajero"+"-"+"Conductor"+"-"+(float)3000+"-"
+        Call call3 = service.AccesoGeneral("crearCredito,"+"UserName"+","+"123,"+0+"-"+"UserName"+"-"+"Conductor"+"-"+(float)3000+"-"
                 +"NumTarjeta,Tipo,CVV"+"-");
         call3.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody>  _, Response<ResponseBody>  response) {
                 try {
-                    String CC = response.body().string();
-                    assertEquals("Pago creado, ID: 123", CC);
+                    String A = response.body().string();
                 } catch (Exception e) {e.printStackTrace();}
             }
             @Override
             public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
         });
+        assertEquals(E, A);
     }
 
     @Test
     public void HacerPagosEfectivo() {
+
+        String E = "Pago creado, ID: 123";
+        String A= "";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
@@ -240,23 +256,26 @@ public class PruebasUber {
             }
         });
 
-        Call call3 = service.AccesoGeneral("crearEfectivo,"+"UserName"+","+"123,"+0+"-"+"Pasajero"+"-"+"Conductor"+"-"+(float)3000+"-"
+        Call call3 = service.AccesoGeneral("crearEfectivo,"+"UserName"+","+"123,"+0+"-"+"UserName"+"-"+"Conductor"+"-"+(float)3000+"-"
                 +"Moneda,Monto dado,Monto devuelto"+"-");
         call3.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody>  _, Response<ResponseBody>  response) {
                 try {
-                    String CC = response.body().string();
-                    assertEquals("Pago creado, ID: 123", CC);
+                    String A = response.body().string();
                 } catch (Exception e) {e.printStackTrace();}
             }
             @Override
             public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
         });
+        assertEquals(E, A);
     }
 
     @Test
-    public void VerPagos() {
+    public void VerPagosPasajero() {
+
+        String E = "";
+        String A= "";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
@@ -285,7 +304,7 @@ public class PruebasUber {
             public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
         });
 
-        Call call3 = service.AccesoGeneral("crearCredito,"+"UserName"+","+"123,"+0+"-"+"Pasajero"+"-"+"Conductor"+"-"+(float)3000+"-"
+        Call call3 = service.AccesoGeneral("crearCredito,"+"UserName"+","+"123,"+0+"-"+"UserName"+"-"+"Conductor"+"-"+(float)3000+"-"
                 +"NumTarjeta,Tipo,CVV"+"-");
         call3.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -308,7 +327,7 @@ public class PruebasUber {
             }
         });
 
-        Call call5 = service.AccesoGeneral("crearEfectivo,"+"UserName"+","+"123,"+0+"-"+"Pasajero"+"-"+"Conductor"+"-"+(float)3000+"-"
+        Call call5 = service.AccesoGeneral("crearEfectivo,"+"UserName"+","+"123,"+0+"-"+"UserName"+"-"+"Conductor"+"-"+(float)3000+"-"
                 +"Moneda,Monto dado,Monto devuelto"+"-");
         call5.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -324,13 +343,106 @@ public class PruebasUber {
             @Override
             public void onResponse(Call _, Response response) {
                 try {
-                    System.out.println(response.body().toString());
-                    String CC = response.body().toString();
-                    //assertEquals("Pago creado, ID: 123", CC);
+                    String A = response.body().toString();
                 } catch (Exception e) {e.printStackTrace();}
             }
             @Override
             public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
         });
+        assertEquals(E, A);
     }
+
+    @Test
+    public void VerPagosConductor() {
+
+        String E = "";
+        String A= "";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://tranquil-sea-18734.herokuapp.com/")
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .build();
+        final HerokuService service = retrofit.create(HerokuService.class);
+
+        Call<ResponseBody> call = service.Crear("UserName","123","Pasajero","Name Last",6746647,
+                "1234567890", "a@g.com");
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> _, Response<ResponseBody> response) {
+                try {} catch (Exception e) {e.printStackTrace();}
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
+        });
+
+        Call<ResponseBody> call1 = service.Crear("UserName2","123","Conductor","Name y Last",6746644,
+                "1234567891", "b@g.com");
+        call1.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> _, Response<ResponseBody> response) {
+                try {} catch (Exception e) {e.printStackTrace();}
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
+        });
+
+        Call<ResponseBody> call2 = service.AccesoGeneral("CrearReserva,"+"UserName"+","+"123,"+"A"+"-"+"27/05/2019-"+"Concepto"+"-"+"B"+"-");
+        call2.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> _, Response<ResponseBody> response) {
+                try {} catch (Exception e) {e.printStackTrace();}
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
+        });
+
+        Call call3 = service.AccesoGeneral("crearCredito,"+"UserName"+","+"123,"+0+"-"+"UserName"+"-"+"UserName2"+"-"+(float)3000+"-"
+                +"NumTarjeta,Tipo,CVV"+"-");
+        call3.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody>  _, Response<ResponseBody>  response) {
+                try {} catch (Exception e) {e.printStackTrace();}
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
+        });
+
+        Call<ResponseBody> call4 = service.AccesoGeneral("CrearReserva,"+"UserName"+","+"123,"+"C"+"-"+"27/05/2019-"+"Concepto"+"-"+"D"+"-");
+        call4.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> _, Response<ResponseBody> response) {
+                try {} catch (Exception e) {e.printStackTrace();}
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> _, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
+        Call call5 = service.AccesoGeneral("crearEfectivo,"+"UserName"+","+"123,"+0+"-"+"UserName"+"-"+"UserName2"+"-"+(float)3000+"-"
+                +"Moneda,Monto dado,Monto devuelto"+"-");
+        call5.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody>  _, Response<ResponseBody>  response) {
+                try {} catch (Exception e) {e.printStackTrace();}
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
+        });
+
+        Call call6 = service.AccesoGeneral("verPagosP,"+"UserName2,"+"123,"+"UserName2"+"-");
+        call6.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call _, Response response) {
+                try {
+                    String A = response.body().toString();
+                } catch (Exception e) {e.printStackTrace();}
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> _, Throwable t) {t.printStackTrace();}
+        });
+        assertEquals(E, A);
+    }
+
+    
 }
