@@ -40,8 +40,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/user_list_map"
-            android:layout_marginEnd="18dp"
-            android:text="Prueba" />
+            android:layout_marginEnd="111dp"
+            android:text="Confirmar" />
 
         <Switch
             android:id="@+id/switch2"
