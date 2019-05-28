@@ -107,9 +107,12 @@ public class PerfilGenerico extends AppCompatActivity {
         }
 
         mFusedLocation.getLastLocation().addOnCompleteListener(task -> {
+            Location L =null;
+
             if (task.isSuccessful()) {
+                L = task.getResult();
             }
-            Location L = task.getResult();
+
             LocationLog = new LatLng(L.getLatitude(),L.getLongitude());
 
             Call<ResponseBody> call = service.ActP(Integer.parseInt(id),L.getLatitude(),L.getLongitude());

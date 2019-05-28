@@ -418,9 +418,19 @@ public class Maps extends Fragment implements  OnMapReadyCallback, OnClickListen
                             public void onResponse(Call<ResponseBody> _,
                                                    Response<ResponseBody> response) {
                                 try {
+                                    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                    builder.setMessage("Reserva:"+response.body().string())
+                                            .setCancelable(true)
+                                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
 
-                                    System.out.println(response.body().string());
+                                                    dialog.dismiss();
+                                                }
+                                            });
 
+                                    final AlertDialog alert = builder.create();
+                                    alert.show();
+                                    System.out.println("EFECTIVO"+response.body().string());
                                 } catch (Exception e) {
                                     e.printStackTrace();
 
@@ -444,7 +454,18 @@ public class Maps extends Fragment implements  OnMapReadyCallback, OnClickListen
                                 public void onResponse(Call<ResponseBody> _,
                                                        Response<ResponseBody> response) {
                                     try {
+                                        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                        builder.setMessage(response.body().string())
+                                                .setCancelable(true)
+                                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
 
+                                                        dialog.dismiss();
+                                                    }
+                                                });
+
+                                        final AlertDialog alert = builder.create();
+                                        alert.show();
                                         System.out.println("EFECTIVO"+response.body().string());
 
                                     } catch (Exception e) {
@@ -472,7 +493,19 @@ public class Maps extends Fragment implements  OnMapReadyCallback, OnClickListen
                                                        Response<ResponseBody> response) {
                                     try {
 
-                                        System.out.println(response.body().string());
+                                        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                        builder.setMessage(response.body().string())
+                                                .setCancelable(true)
+                                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+
+                                                        dialog.dismiss();
+                                                    }
+                                                });
+
+                                        final AlertDialog alert = builder.create();
+                                        alert.show();
+                                        System.out.println("EFECTIVO"+response.body().string());
 
                                     } catch (Exception e) {
                                         e.printStackTrace();

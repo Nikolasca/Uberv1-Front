@@ -67,10 +67,12 @@ public class PerfilConductor extends AppCompatActivity {
         }
 
         mFusedLocation.getLastLocation().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-            }
-            Location L = task.getResult();
+            Location L =null;
 
+            if (task.isSuccessful()) {
+                L = task.getResult();
+            }
+            
             Call<ResponseBody> call = service.ActP(Integer.parseInt(id),L.getLatitude(),L.getLongitude());
 
 
